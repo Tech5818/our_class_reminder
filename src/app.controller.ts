@@ -33,6 +33,17 @@ export class AppController {
 
     console.log(response);
 
-    res.status(200).json(response);
+    res.status(200).json({
+      version: '2.0',
+      template: {
+        outputs: [
+          {
+            simpleText: {
+              text: '간단한 텍스트 요소입니다.',
+            },
+          },
+        ],
+      },
+    });
   }
 }
