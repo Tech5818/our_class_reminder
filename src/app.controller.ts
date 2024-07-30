@@ -6,33 +6,38 @@ import { response, Response } from 'express';
 export class AppController {
   constructor(private readonly appService: AppService) {}
 
-  @Get()
-  getHello(): string {
-    return this.appService.getHello();
+  @Get('/keyboard')
+  getHello(@Res() res: Response) {
+    res.json({ type: 'text' });
   }
 
-  @Post('/test')
+  @Post('/message')
   test(
     @Res() res: Response,
     @Body() body: { userRequest: { utterance: string } },
   ) {
-    console.log(body.userRequest.utterance);
+    const goMain = '처음으로';
 
-    const response = {
+    const data = {
       version: '2.0',
       template: {
         outputs: [
           {
             simpleText: {
-              text: '간단한 텍스트 요소입니다.',
+              text: '테스트',
             },
+          },
+        ],
+        quickReplies: [
+          {
+            label: goMain,
+            action: 'message',
+            messageText: goMain,
           },
         ],
       },
     };
 
-    console.log(response);
-
-    res.status(200).json({ anything: 'asfsafsd' });
+    res.json(data);
   }
 }
