@@ -34,7 +34,7 @@ export class AppController {
 
       console.log(response);
 
-      res.json(response);
+      res.status(200).json(response);
     }
   }
 }
