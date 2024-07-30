@@ -1,6 +1,6 @@
 import { Body, Controller, Get, Post, Res } from '@nestjs/common';
 import { AppService } from './app.service';
-import { Response } from 'express';
+import { response, Response } from 'express';
 
 @Controller()
 export class AppController {
@@ -19,7 +19,7 @@ export class AppController {
     console.log(body.userRequest.utterance);
 
     if (body.userRequest.utterance === '테스트') {
-      res.json({
+      const response = {
         version: '2.0',
         template: {
           outputs: [
@@ -30,7 +30,11 @@ export class AppController {
             },
           ],
         },
-      });
+      };
+
+      console.log(response);
+
+      res.json(response);
     }
   }
 }
