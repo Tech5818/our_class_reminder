@@ -18,23 +18,21 @@ export class AppController {
   ) {
     console.log(body.userRequest.utterance);
 
-    if (body.userRequest.utterance === '테스트') {
-      const response = {
-        version: '2.0',
-        template: {
-          outputs: [
-            {
-              simpleText: {
-                text: '간단한 텍스트 요소입니다.',
-              },
+    const response = {
+      version: '2.0',
+      template: {
+        outputs: [
+          {
+            simpleText: {
+              text: '간단한 텍스트 요소입니다.',
             },
-          ],
-        },
-      };
+          },
+        ],
+      },
+    };
 
-      console.log(response);
+    console.log(response);
 
-      res.status(200).json(response);
-    }
+    res.status(200).json(response);
   }
 }
