@@ -18,7 +18,6 @@ export class AppController {
   ) {
     console.log(body.userRequest.utterance);
 
-    const goMain = '처음으로';
     if (body.userRequest.utterance === '테스트') {
       res.json({
         version: '2.0',
@@ -26,15 +25,8 @@ export class AppController {
           outputs: [
             {
               simpleText: {
-                text: '테스트',
+                text: '간단한 텍스트 요소입니다.',
               },
-            },
-          ],
-          quickReplies: [
-            {
-              label: goMain,
-              action: 'message',
-              messageText: goMain,
             },
           ],
         },
