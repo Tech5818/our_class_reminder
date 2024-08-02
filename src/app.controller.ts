@@ -16,8 +16,6 @@ export class AppController {
     @Res() res: Response,
     @Body() body: { userRequest: { utterance: string } },
   ) {
-    const goMain = '처음으로';
-
     const data = {
       version: '2.0',
       template: {
@@ -26,13 +24,6 @@ export class AppController {
             simpleText: {
               text: '테스트',
             },
-          },
-        ],
-        quickReplies: [
-          {
-            label: goMain,
-            action: 'message',
-            messageText: goMain,
           },
         ],
       },
