@@ -13,7 +13,9 @@ export class ChatbotController {
       const response = await this.chatbotService.findToDay();
 
       if (!response)
-        return res.status(HttpStatus.NO_CONTENT).json({ data: null });
+        return res
+          .status(HttpStatus.OK)
+          .json(ChatbotResponse('오늘의 소식은 작성되지 않았습니다.'));
 
       return res.status(HttpStatus.OK).json(ChatbotResponse(response.body));
     } catch (error) {
@@ -26,9 +28,12 @@ export class ChatbotController {
     try {
       const response = await this.chatbotService.findYesterday();
 
-      if (!response) return res.status(HttpStatus.NO_CONTENT).json(null);
+      if (!response)
+        return res
+          .status(HttpStatus.OK)
+          .json(ChatbotResponse('어제의 소식은 작성되지 않았습니다.'));
 
-      return res.status(HttpStatus.OK).json(response);
+      return res.status(HttpStatus.OK).json(ChatbotResponse(response.body));
     } catch (error) {
       return res.status(HttpStatus.INTERNAL_SERVER_ERROR).json({ error });
     }
@@ -39,9 +44,12 @@ export class ChatbotController {
     try {
       const response = await this.chatbotService.findTwoDaysAgo();
 
-      if (!response) return res.status(HttpStatus.NO_CONTENT).json(null);
+      if (!response)
+        return res
+          .status(HttpStatus.OK)
+          .json(ChatbotResponse('엊그제의 소식은 작성되지 않았습니다.'));
 
-      return res.status(HttpStatus.OK).json(response);
+      return res.status(HttpStatus.OK).json(ChatbotResponse(response.body));
     } catch (error) {
       return res.status(HttpStatus.INTERNAL_SERVER_ERROR).json({ error });
     }
