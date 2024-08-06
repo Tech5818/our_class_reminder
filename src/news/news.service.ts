@@ -1,9 +1,9 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { News } from './entity/news.entity';
+import { News } from '../entitys/news.entity';
 import { Repository } from 'typeorm';
 import { CreateNewsDto } from './dto/news.dto';
-import { Schedule } from 'src/schedule/entity/schedule.entity';
+import { Schedule } from 'src/entitys/schedule.entity';
 
 @Injectable()
 export class NewsService {

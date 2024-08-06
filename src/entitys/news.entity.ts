@@ -17,6 +17,6 @@ export class News extends BaseEntity {
   @Column()
   body: string;
 
-  @Column()
+  @Column({ type: 'timestamp' })
   date: Date;
 }
