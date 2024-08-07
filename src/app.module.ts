@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { ConfigModule } from '@nestjs/config';
@@ -6,6 +6,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { NewsModule } from './news/news.module';
 import { ScheduleModule } from './schedule/schedule.module';
 import { ChatbotModule } from './chatbot/chatbot.module';
+import { LoggerMiddleware } from './middleware/LoggerMiddleware';
 
 @Module({
   imports: [
@@ -23,4 +24,8 @@ import { ChatbotModule } from './chatbot/chatbot.module';
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule {}
+export class AppModule implements NestModule {
+  configure(consumer: MiddlewareConsumer) {
+    consumer.apply(LoggerMiddleware).forRoutes('*');
+  }
+}

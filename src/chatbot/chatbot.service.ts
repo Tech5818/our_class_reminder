@@ -3,6 +3,8 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { News } from 'src/entitys/news.entity';
 import { Schedule } from 'src/entitys/schedule.entity';
 import { Between, Repository } from 'typeorm';
+import { endOfDay, startOfDay, subDays } from 'date-fns';
+import { toZonedTime } from 'date-fns-tz';
 
 @Injectable()
 export class ChatbotService {
@@ -12,20 +14,20 @@ export class ChatbotService {
     private readonly scheduleRepository: Repository<Schedule>,
   ) {}
 
+  private readonly baseDate = toZonedTime(new Date(), 'Asia/Seoul');
+
   /**
    * 오늘의 소식을 전합니다.
    */
   async findToDay() {
     try {
-      const startOfDay = new Date();
-      startOfDay.setHours(0, 0, 0, 0);
+      const start = startOfDay(this.baseDate);
 
-      const endOfDay = new Date();
-      endOfDay.setHours(23, 59, 59, 999);
+      const end = endOfDay(this.baseDate);
 
       return await this.newsRepository.findOne({
         where: {
-          date: Between(startOfDay, endOfDay),
+          date: Between(start, end),
         },
       });
     } catch (error) {
@@ -38,17 +40,13 @@ export class ChatbotService {
    */
   async findYesterday() {
     try {
-      const startOfDay = new Date();
-      startOfDay.setDate(startOfDay.getDate() - 1);
-      startOfDay.setHours(0, 0, 0, 0);
+      const start = startOfDay(subDays(this.baseDate, 1));
 
-      const endOfDay = new Date();
-      endOfDay.setDate(endOfDay.getDate() - 1);
-      endOfDay.setHours(23, 59, 59, 999);
+      const end = endOfDay(subDays(this.baseDate, 1));
 
       return await this.newsRepository.findOne({
         where: {
-          date: Between(startOfDay, endOfDay),
+          date: Between(start, end),
         },
       });
     } catch (error) {
@@ -61,17 +59,13 @@ export class ChatbotService {
    */
   async findTwoDaysAgo() {
     try {
-      const startOfDay = new Date();
-      startOfDay.setDate(startOfDay.getDate() - 2);
-      startOfDay.setHours(0, 0, 0, 0);
+      const start = startOfDay(subDays(this.baseDate, 2));
 
-      const endOfDay = new Date();
-      endOfDay.setDate(endOfDay.getDate() - 2);
-      endOfDay.setHours(23, 59, 59, 999);
+      const end = endOfDay(subDays(this.baseDate, 2));
 
       return await this.newsRepository.findOne({
         where: {
-          date: Between(startOfDay, endOfDay),
+          date: Between(start, end),
         },
       });
     } catch (error) {
