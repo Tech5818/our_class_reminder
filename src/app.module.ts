@@ -3,9 +3,9 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { NewsModule } from './news/news.module';
-import { ScheduleModule } from './schedule/schedule.module';
-import { ChatbotModule } from './chatbot/chatbot.module';
+import { NewsModule } from './modules/news.module';
+import { ScheduleModule } from './modules/schedule.module';
+import { ChatbotModule } from './modules/chatbot.module';
 import { LoggerMiddleware } from './middleware/LoggerMiddleware';
 
 @Module({

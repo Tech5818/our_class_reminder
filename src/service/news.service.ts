@@ -1,9 +1,9 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { News } from '../entitys/news.entity';
+import { News } from '../entities/news.entity';
 import { Repository, UpdateResult } from 'typeorm';
-import { CreateNewsDto, deleteNewsDto, UpdateNewsDto } from './dto/news.dto';
-import { Schedule } from 'src/entitys/schedule.entity';
+import { CreateNewsDto, deleteNewsDto, UpdateNewsDto } from '../dto/news.dto';
+import { Schedule } from 'src/entities/schedule.entity';
 
 @Injectable()
 export class NewsService {
@@ -21,16 +21,12 @@ export class NewsService {
   }
 
   async update(updateNewsDto: UpdateNewsDto): Promise<UpdateResult> {
-    try {
-      const updateNews = await this.newsRepository.update(
-        { id: updateNewsDto.id },
-        { date: updateNewsDto.date, body: updateNewsDto.body },
-      );
+    const updateNews = await this.newsRepository.update(
+      { id: updateNewsDto.id },
+      { date: updateNewsDto.date, body: updateNewsDto.body },
+    );
 
-      return updateNews;
-    } catch (error) {
-      throw error;
-    }
+    return updateNews;
   }
 
   async delete(deleteNewsDto: deleteNewsDto) {

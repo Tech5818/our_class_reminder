@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { News } from 'src/entitys/news.entity';
-import { Schedule } from 'src/entitys/schedule.entity';
+import { News } from 'src/entities/news.entity';
+import { Schedule } from 'src/entities/schedule.entity';
 import { Between, Repository } from 'typeorm';
 import { endOfDay, startOfDay, subDays } from 'date-fns';
 import { toZonedTime } from 'date-fns-tz';
