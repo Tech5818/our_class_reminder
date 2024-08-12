@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { News } from '../entitys/news.entity';
-import { Repository } from 'typeorm';
-import { CreateNewsDto } from './dto/news.dto';
+import { Repository, UpdateResult } from 'typeorm';
+import { CreateNewsDto, deleteNewsDto, UpdateNewsDto } from './dto/news.dto';
 import { Schedule } from 'src/entitys/schedule.entity';
 
 @Injectable()
@@ -12,13 +12,41 @@ export class NewsService {
   ) {}
 
   async create(createNewsDto: CreateNewsDto): Promise<News> {
+    const news = new News();
+
+    news.body = createNewsDto.body;
+    news.date = createNewsDto.date;
+
+    return await this.newsRepository.save(news);
+  }
+
+  async update(updateNewsDto: UpdateNewsDto): Promise<UpdateResult> {
     try {
-      const news = new News();
+      const updateNews = await this.newsRepository.update(
+        { id: updateNewsDto.id },
+        { date: updateNewsDto.date, body: updateNewsDto.body },
+      );
 
-      news.body = createNewsDto.body;
-      news.date = createNewsDto.date;
+      return updateNews;
+    } catch (error) {
+      throw error;
+    }
+  }
 
-      return await this.newsRepository.save(news);
+  async delete(deleteNewsDto: deleteNewsDto) {
+    try {
+      const deleteNews = await this.newsRepository.delete({
+        id: deleteNewsDto.id,
+      });
+
+      return deleteNews;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async findById() {
+    try {
     } catch (error) {
       throw error;
     }
